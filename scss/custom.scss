@@ -1,8 +1,40 @@
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
+@import "../bootstrap/scss/functions";
+@import "../bootstrap/scss/variables";
 
 /* begin customisation */
-
+$theme-colors : (
+    "primary": #FF9000
+);
 /* end customisation */
 
-@import "bootstrap/scss/bootstrap";
+@import "../bootstrap/scss/bootstrap";
+
+@font-face {
+    font-family: 'EtelkaTextPro';
+    src: local('EtelkaTextPro'),
+        url('/fonts/EtelkaTextPro.ttf');
+}
+
+$top-bar-height: 3rem;
+.timetable-header {
+    width: 100%;
+    height: $top-bar-height;
+    background-color: theme-color(primary);
+}
+
+.timetable-view-week {
+    margin-left: 1rem;
+    padding-top: 0.5rem;
+    H2 {
+        color: $white;
+    }
+}
+
+.logo-top-bar {
+    width: $top-bar-height;
+    height: $top-bar-height;
+    background-color: rgba($white, 0.25);
+    img {
+        margin: 0.5rem 0.5rem;
+    }
+}
