@@ -15,6 +15,13 @@ $theme-colors : (
         url('/fonts/EtelkaTextPro.ttf');
 }
 
+/* block small screens */
+// body{
+//    min-width:1024px;        /* Suppose you want minimum width of 1000px */
+//    width: auto !important;  /* Firefox will set width as auto */
+//    width:1024px;            /* As IE6 ignores !important it will set width as 1000px; */
+// }
+
 $top-bar-height: 3rem;
 .timetable-header {
     width: 100%;
@@ -25,8 +32,23 @@ $top-bar-height: 3rem;
 .timetable-view-week {
     margin-left: 1rem;
     padding-top: 0.5rem;
-    H2 {
+    h4 {
         color: $white;
+    }
+}
+
+.timetable-mainmenu {
+    color: $white;
+    font-family: Montserrat, sans-serif;
+    margin-right: 1.5rem;
+    div {
+        height: $top-bar-height;
+        //padding-top: 0.75rem;
+        padding: 0.75rem;
+        margin-right: .5rem;
+    }
+    .selected {
+        background-color: rgba($black, 0.25);
     }
 }
 
@@ -36,5 +58,22 @@ $top-bar-height: 3rem;
     background-color: rgba($white, 0.25);
     img {
         margin: 0.5rem 0.5rem;
+    }
+}
+
+.search-btn {
+    padding-top: 0.75rem;
+    margin-right: 1rem;
+    color: $white;
+}
+
+.profile-small{
+    padding-top: 0.5rem;
+    margin-right: 3rem;
+    img {
+         border-radius: 1rem;
+         border-style: solid;
+         border-color: $white;
+         border-width: 2px;
     }
 }

@@ -6,16 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="/css/custom.css">
-    <title>Hello, world!</title>
+    <title>Расписание занятий</title>
   </head>
   <body>
-    <div class= "d-flex d-flex-row timetable-header">
-        <div class="logo-top-bar">
-            <img src="/img/everytale-logo.svg">
+    <div class= "d-flex justify-content-between timetable-header">
+        <div class="d-flex">
+            <div class="logo-top-bar">
+                <img src="/img/everytale-logo.svg">
+            </div>
+
+            <div class="d-flex d-flex-row timetable-view-week">
+                <h4 style="font-family: EtelkaTextPro">Расписание занятий</h4>
+            </div>
         </div>
-        <div class="d-flex d-flex-row timetable-view-week">
-        <h2 style="font-family: EtelkaTextPro">Расписание занятий</h2>
+        <div class="d-flex">
+            <div class="d-flex timetable-mainmenu">
+                <div class="selected">
+                    Расписание
+                </div>
+                <div>
+                    Библиотека
+                </div>
+            </div>
+            <div class="search-btn">
+                <img src="/img/search-icon.svg">
+            </div>
+            <div class="profile-small">
+                <img src="/img/profile.png">
+            </div>
+        </div>
     </div>
 
     <!-- Optional JavaScript -->
