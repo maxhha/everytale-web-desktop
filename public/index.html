@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <!-- Required meta tags -->
@@ -11,6 +11,7 @@
     <title>Расписание занятий</title>
   </head>
   <body>
+    <!-- header bar -->
     <div class= "d-flex justify-content-between timetable-header">
         <div class="d-flex">
             <div class="logo-top-bar">
@@ -18,17 +19,17 @@
             </div>
 
             <div class="d-flex d-flex-row timetable-view-week">
-                <h4 style="font-family: EtelkaTextPro">Расписание занятий</h4>
+                <h4 class="d-none d-md-block">Расписание занятий</h4>
             </div>
         </div>
         <div class="d-flex">
             <div class="d-flex timetable-mainmenu">
-                <div class="selected">
+                <a class="selected">
                     Расписание
-                </div>
-                <div>
+                </a>
+                <a>
                     Библиотека
-                </div>
+                </a>
             </div>
             <div class="search-btn">
                 <img src="/img/search-icon.svg">
@@ -36,6 +37,38 @@
             <div class="profile-small">
                 <img src="/img/profile.png">
             </div>
+        </div>
+    </div>
+    <!--/ header bar -->
+
+    <div class="d-flex row-flex-xl-nowrap content">
+
+        <div class = "filter-sidebar">
+            <div style="left:100%; position:relative; top: 0.5rem;">
+                <div class="close-filters-menu-btn"></div>
+            </div>
+
+            <div class="filter-parameter">
+                <div class="d-flex justify-content-between filter-header">
+                    <div class="d-flex">
+                        <img src="/img/eye.svg">
+                        <h5>Подключенный список</h5>
+                    </div>
+                </div>
+                <ul class="filter-categories-list">
+                    <li class="filter-category">
+                        <h5 class="category-name">МГТУ им Н.Э. Баумана</h5>
+                    </li>
+                    <li class="filter-category">
+                        <h5 class="category-name">Digital Conference</h5>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="week-list-scroll">
+
         </div>
     </div>
 
