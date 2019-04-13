@@ -64,11 +64,13 @@
                                 <div class="chevron"></div>
                             </div>
                         </div>
-                        <div class="collapse category-positions">
-                            <input type="checkbox" checked id="fruit1" class="list-checkbox">
-                            <label for="fruit1">ИУ9-43Б</label>
-                            <input type="checkbox" id="fruit2" class="list-checkbox">
-                            <label for="fruit2">Технопарк Python-14</label>
+                        <div class="category-positions">
+                            <div class="collapse">
+                                <input type="checkbox" checked id="fruit1" class="list-checkbox">
+                                <label for="fruit1">ИУ9-43Б</label>
+                                <input type="checkbox" id="fruit2" class="list-checkbox">
+                                <label for="fruit2">Технопарк Python-14</label>
+                            </div>
                         </div>
                     </li>
                     <li class="filter-category">
@@ -105,10 +107,10 @@
         $(".category-header").on("click", function(){
             if ($(this).is('.show')) {
                 $(this).removeClass("show");
-                $(this).parent().find(".category-positions").hide(350);
+                $(this).parent().find(".collapse").hide(350);
             } else {
                 $(this).addClass("show");
-                var collapseItem = $(this).parent().find(".category-positions");
+                var collapseItem = $(this).parent().find(".collapse");
                 collapseItem.show(350);
             }
         });
