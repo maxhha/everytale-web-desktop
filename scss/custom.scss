@@ -194,6 +194,7 @@ $top-bar-height: 3rem;
         -ms-flex: 0 1 331px;
         flex: 0 1 331px;
     }
+    z-index:1000;
 }
 
 .close-filters-menu-btn {
@@ -301,14 +302,87 @@ $category-color: #16405A;
 
 .category-positions {
     margin: 0 $filter-padding-x;
+
     .collapse {
-        margin-top: 1.5rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
     }
 }
 
 /*---------- END Timetabale filter sidebar ----------*/
 
+
+
+/*---------- Timetable body ---------*/
+$timetable-day-width: 23rem;
+$timetable-day-width-current: 26.5rem;
+
 .week-list-scroll {
+    overflow-x: scroll;
+    overflow-y: scroll;
     height: 100%;
     flex: 1 0 75%;
+    display: flex;
 }
+
+.day-place {
+    flex: 1 0 $timetable-day-width;
+    border-left: $border-width solid $border-color;
+    border-right: $border-width solid $border-color;
+    margin-top: 0.5rem;
+    padding: 0 1rem;
+    &:first-of-type {
+        border-left: none;
+    }
+    &:last-of-type {
+        border-right: none;
+    }
+    &.current {
+        flex-basis: $timetable-day-width-current;
+        .day-card {
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            background: $white;
+            box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.1);
+        }
+        .weekday, .date {
+            color: $black;
+        }
+
+        .today-label {
+            display:block;
+        }
+    }
+}
+
+.day-card {
+    height: 200px;
+    width: 100%;
+    line-height: 38px;
+
+    .weekday {
+        color: #8B9FAC;
+        font-family: $font-family-heading;
+        font-size: 24px;
+        margin-right: 0.75rem;
+    }
+
+    .date {
+        color: #8B9FAC;
+        font-family: $font-family-base;
+        font-size: 18px;
+    }
+
+    .today-label {
+        color: theme-color(primary);
+        font-family: $font-family-base;
+        font-size: 18px;
+        display: none;
+    }
+}
+
+.day-header {
+    margin-bottom: 1rem;
+}
+
+/*---------- END Timetable body ---------*/
