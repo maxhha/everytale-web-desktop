@@ -244,6 +244,7 @@ $category-color: #16405A;
     border-top: $border-width*2 solid $border-color;
     border-bottom: $border-width*2 solid $border-color;
     transition: opacity $toggle-filters-bar-time ease;
+    display: none;
     &:first-of-type {
         border-top: none; // doesnt work when there is an element with same type
                           // as .filter-parameter element type in child

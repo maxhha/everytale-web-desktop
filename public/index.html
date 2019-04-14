@@ -43,142 +43,258 @@
 
         <div class="d-flex row-flex-xl-nowrap content">
 
-            <div class = "filter-sidebar">
+            <div class = "filter-sidebar hidden">
                 <span style="left:100%; position:relative; top: 0.5rem;">
-                    <div class="toggle-filters-menu-btn show"></div>
+                    <div class="toggle-filters-menu-btn"></div>
                 </span>
-
-                <div class="filter-parameter">
-                    <div class="filter-header">
-                        <div class="d-flex">
-                            <img src="/img/eye.svg">
-                            <h5>Подключенный список</h5>
-                        </div>
-                    </div>
-                    <ul class="filter-categories-list">
-                        <li class="filter-category">
-                            <div class="d-flex justify-content-between category-header">
-                                <h5 class="category-name">МГТУ им Н.Э. Баумана</h5>
-                                <div class="open-category-btn">
-                                    <div class="chevron"></div>
-                                </div>
-                            </div>
-                            <div class="category-positions">
-                                <div class="collapse">
-                                    <input type="checkbox" checked id="fruit1" class="list-checkbox">
-                                    <label for="fruit1">ИУ9-43Б</label>
-                                    <input type="checkbox" id="fruit2" class="list-checkbox">
-                                    <label for="fruit2">Технопарк Python-14</label>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="filter-category">
-                            <div class="d-flex justify-content-between category-header">
-                                <h5 class="category-name">Digital Conference</h5>
-                                <div class="open-category-btn">
-                                    <div class="chevron"></div>
-                                </div>
-                            </div>
-                            <div class="category-positions">
-                                <div class="collapse">
-                                    <input type="checkbox" checked id="fruit1" class="list-checkbox">
-                                    <label for="fruit1">ИУ9-43Б</label>
-                                    <input type="checkbox" id="fruit2" class="list-checkbox">
-                                    <label for="fruit2">Технопарк Python-14</label>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
             </div>
 
-            <div class="week-list-scroll">
-                <div class="day-place current">
-                    <div class="day-card">
-
-                        <div class="d-flex justify-content-between day-header">
-                            <div class="weekday">
-                                Понедельник
-                            </div>
-                            <div class="d-flex justify-content-between flex-grow-1">
-                                <div class="date">15.04</div>
-                                <div class="today-label">Сегодня</div>
-                            </div>
-                        </div>
-
-                        <div class="timetable-event">
-                            <div class="d-flex event-header">
-                                <div class="flex-shrink-0 flex-grow-0">
-                                    <div class="event-start-time">8:30</div>
-                                    <div class="event-finish-time">10:05</div>
-                                </div>
-                                <a class="event-name" href="#">Обыкновенные дифференциальные уравнения</a>
-                            </div>
-                            <div class="d-flex justify-content-between event-icons-bar">
-                                <div class="d-flex">
-                                    <span class="event-icon icon-lecturer"></span>
-                                    <span class="event-icon icon-place"></span>
-                                    <span class="event-icon icon-info"></span>
-                                </div>
-                                <div class="d-flex justify-content-end">
-                                    <span class="event-icon icon-paper disabled"></span>
-                                    <span class="event-icon icon-clip"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="timetable-event">
-                            <div class="d-flex event-header">
-                                <div class="flex-shrink-0 flex-grow-0">
-                                    <div class="event-start-time">8:30</div>
-                                    <div class="event-finish-time">10:05</div>
-                                </div>
-                                <a class="event-name" href="#">Обыкновенные дифференциальные уравнения</a>
-                            </div>
-                            <div class="d-flex justify-content-between event-icons-bar">
-                                <div class="d-flex">
-                                    <span class="event-icon icon-lecturer"></span>
-                                    <span class="event-icon icon-place"></span>
-                                    <span class="event-icon icon-info"></span>
-                                </div>
-                                <div class="d-flex justify-content-end">
-                                    <span class="event-icon icon-paper disabled"></span>
-                                    <span class="event-icon icon-clip"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="day-place">
-                    <div class="day-card">
-                        <div class="d-flex justify-content-between day-header">
-                            <div class="weekday">
-                                Понедельник
-                            </div>
-
-                            <div class="d-flex justify-content-between flex-grow-1">
-                                <div class="date">15.04</div>
-                                <div class="today-label">Сегодня</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="day-place"></div>
-                <div class="day-place"></div>
-                <div class="day-place"></div>
-                <div class="day-place"></div>
-                <div class="day-place"></div>
-            </div>
+            <div class="week-list-scroll"></div>
         </div>
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- Templates -->
+    <script id="filter-parameter-tmpl" type="text/x-handlebars-template">
+        <div class="filter-parameter">
+            <div class="filter-header">
+                <div class="d-flex">
+                    <img src="{{img}}">
+                    <h5>{{name}}</h5>
+                </div>
+            </div>
+            <ul class="filter-categories-list">
+                {{#each category}}
+                <li class="filter-category">
+                    <div class="d-flex justify-content-between category-header">
+                        <h5 class="category-name">{{this.name}}</h5>
+                        <div class="open-category-btn">
+                            <div class="chevron"></div>
+                        </div>
+                    </div>
+                    <div class="category-positions">
+                        <div class="collapse">
+                            {{#each position}}
+                            <input type="checkbox" id="param{{this.id}}" class="list-checkbox" {{#if this.checked}}checked{{/if}}>
+                            <label for="param{{this.id}}">{{this.name}}</label>
+                            {{/each}}
+                        </div>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+    </script>
+    <script id="day-tmpl" type="text/x-handlebars-template">
+        <div class="day-place {{#if today}}current{{/if}}">
+            <div class="day-card">
+
+                <div class="d-flex justify-content-between day-header">
+                    <div class="weekday">
+                        {{name}}
+                    </div>
+                    <div class="d-flex justify-content-between flex-grow-1">
+                        <div class="date">{{date}}</div>
+                        <div class="today-label">Сегодня</div>
+                    </div>
+                </div>
+                {{#each events}}
+                <div class="timetable-event">
+                    <div class="d-flex event-header">
+                        <div class="flex-shrink-0 flex-grow-0">
+                            <div class="event-start-time">{{this.timestart}}</div>
+                            <div class="event-finish-time">{{this.timefinish}}</div>
+                        </div>
+                        <a class="event-name" href="{{this.url}}">{{this.name}}</a>
+                    </div>
+                    <div class="d-flex justify-content-between event-icons-bar">
+                        <div class="d-flex">
+                            <span class="event-icon icon-lecturer"></span>
+                            <span class="event-icon icon-place"></span>
+                            <span class="event-icon icon-info"></span>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <span class="event-icon icon-paper {{#if this.hasDocument}}{{else}}disabled{{/if}}"></span>
+                            <span class="event-icon icon-clip {{#if this.hasFile}}{{else}}disabled{{/if}}"></span>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </script>
+    <!-- END Templates -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.1/handlebars.min.js" integrity="sha256-Mki72593zH3nxiQrW1mskmSOAXOep8FVIK0ozKFISyY=" crossorigin="anonymous"></script>
     <script>
+        (function(){
+            var filterTempl = Handlebars.compile($("#filter-parameter-tmpl").html());
+
+            var filters = [{
+                name: "Подключенный спискок",
+                img : "/img/eye.svg",
+                category: [
+                    {
+                        name: "МГТУ им Н.Э. Баумана",
+                        position: [{
+                            name: "ИУ9-43Б",
+                            id: "1",
+                            checked: false
+                        }, {
+                            name: "Технопарк Python-14",
+                            id: "2",
+                            checked: false
+                        }]
+                    },{
+                        name: "Digital Conference",
+                        position: [{
+                            name: "NLP/Machine Learning",
+                            id: "3",
+                            checked: false
+                        }]
+                    }
+                ]
+            }];
+            var target = $('.filter-sidebar');
+            filters.forEach(function(filter){
+                target.append(filterTempl(filter));
+            });
+        })();
+
+        (function(){
+            var dayTmpl = Handlebars.compile($("#day-tmpl").html());
+            var weekdays = [{
+                name: "Понедельник",
+                date: "15.04",
+                today: true,
+                events: [{
+                    name: "Обыкновенные дифференциальные уравнения",
+                    timestart: "10:15",
+                    timefinish: "11:50",
+                    url:"#",
+                    hasDocument: true,
+                    hasFile: true
+                },{
+                    name: "Операционные системы",
+                    timestart: "10:15",
+                    timefinish: "11:50",
+                    url:"#",
+                    hasDocument: true,
+                    hasFile: true
+                },{
+                    name: "Алгоритмы компьютерной графики",
+                    timestart: "10:15",
+                    timefinish: "11:50",
+                    url:"#",
+                    hasDocument: true,
+                    hasFile: false
+                }]
+            },{
+                name: "Вторник",
+                date: "16.04",
+                today: false,
+                events: [{
+                    name: "Обыкновенные дифференциальные уравнения",
+                    timestart: "10:15",
+                    timefinish: "11:50",
+                    url:"#",
+                    hasDocument: false,
+                    hasFile: true
+                },{
+                    name: "Операционные системы",
+                    timestart: "10:15",
+                    timefinish: "11:50",
+                    url:"#",
+                    hasDocument: true,
+                    hasFile: true
+                },{
+                    name: "Алгоритмы компьютерной графики",
+                    timestart: "10:15",
+                    timefinish: "11:50",
+                    url:"#"
+                }]
+            },{
+                name: "Среда",
+                date: "17.04",
+                today: false,
+                events: [{
+                    name: "Обыкновенные дифференциальные уравнения",
+                    timestart: "10:15",
+                    timefinish: "11:50",
+                    url:"#"
+                },{
+                    name: "Операционные системы",
+                    timestart: "10:15",
+                    timefinish: "11:50",
+                    url:"#"
+                },{
+                    name: "Алгоритмы компьютерной графики",
+                    timestart: "10:15",
+                    timefinish: "11:50",
+                    url:"#"
+                }]
+            },{
+                name: "Четверг",
+                date: "18.04",
+                today: false,
+                events: [{
+                    name: "Обыкновенные дифференциальные уравнения",
+                    timestart: "10:15",
+                    timefinish: "11:50",
+                    url:"#"
+                },{
+                    name: "Операционные системы",
+                    timestart: "10:15",
+                    timefinish: "11:50",
+                    url:"#"
+                },{
+                    name: "Алгоритмы компьютерной графики",
+                    timestart: "10:15",
+                    timefinish: "11:50",
+                    url:"#"
+                }]
+            },,{
+                name: "Пятница",
+                date: "19.04",
+                today: false,
+                events: [{
+                    name: "Обыкновенные дифференциальные уравнения",
+                    timestart: "10:15",
+                    timefinish: "11:50",
+                    url:"#"
+                },{
+                    name: "Операционные системы",
+                    timestart: "10:15",
+                    timefinish: "11:50",
+                    url:"#"
+                },{
+                    name: "Алгоритмы компьютерной графики",
+                    timestart: "10:15",
+                    timefinish: "11:50",
+                    url:"#"
+                }]
+            },{
+                name: "Суббота",
+                date: "20.04",
+                today: false,
+                events: [{
+                    name: "Алгоритмы компьютерной графики",
+                    timestart: "10:15",
+                    timefinish: "11:50",
+                    url:"#"
+                }]
+            },{
+                name: "Воскресенье",
+                date: "21.04",
+                today: false,
+                events: []
+            }];
+            var target = $(".week-list-scroll")
+            weekdays.forEach(function(data){
+                target.append(dayTmpl(data));
+            });
+        })();
+
         $(".category-header").on("click", function(){
             if ($(this).is('.show')) {
                 $(this).removeClass("show");
@@ -206,6 +322,7 @@
                 $(".filter-parameter").css("display", 'block');
             }
         });
+
     </script>
   </body>
 </html>
