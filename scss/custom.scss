@@ -160,7 +160,13 @@ $top-bar-height: 3rem;
 }
 
 .search-btn {
-    padding-top: 0.75rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.4002 17.6005C14.3766 17.6005 17.6002 14.3769 17.6002 10.4003C17.6002 6.42381 14.3766 3.2002 10.4002 3.2002C6.42374 3.2002 3.2002 6.42381 3.2002 10.4003C3.2002 14.3769 6.42374 17.6005 10.4002 17.6005Z' stroke='white' stroke-width='2' stroke-miterlimit='10'/%3E%3Cpath d='M20.8002 20.8008L15.5498 15.5503' stroke='white' stroke-width='2' stroke-miterlimit='10' stroke-linecap='round'/%3E%3C/svg%3E%0A");
+    margin-top: 0.75rem;
     margin-right: 1rem;
     color: $white;
 }
@@ -181,16 +187,22 @@ $top-bar-height: 3rem;
 
 .content {
     width: 100%;
-    height: calc(100vh - #{$top-bar-height});
+    height: 100%;
+    //height: calc(100vh - #{$top-bar-height}); // change to flex column due to
+                                                // wider browser support
 }
 
 
 
 /*---------- Timetabale filter sidebar ----------*/
+
+$toggle-filters-bar-time: 0.35s;
+
 .filter-sidebar {
     background-color: $white;
     height: 100%;
     flex: 0 0 25%;
+    border-top: $border-width solid $border-color;
     border-right: $border-width solid $border-color;
     @media (min-width: 1200px){
         -webkit-box-flex: 0;
@@ -198,18 +210,32 @@ $top-bar-height: 3rem;
         flex: 0 1 331px;
     }
     z-index:1000;
+    transition: flex-basis $toggle-filters-bar-time ease, box-shadow $toggle-filters-bar-time ease;
+    &.hidden {
+        flex-basis: 3rem;
+        overflow-x: hidden;
+        box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.1);
+    }
 }
 
-.close-filters-menu-btn {
+
+.toggle-filters-menu-btn {
     width: 2rem;
     height: 2rem;
-    background-image: url('/img/close-timetable-filters.svg');
     background-repeat: no-repeat;
     background-position: center;
     position: absolute;
-    display: flex;
-    left: -1rem;
+    transition: opacity $toggle-filters-bar-time ease;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 16H23' stroke='%23FD8F01' stroke-width='2' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M9 11H23' stroke='%23FD8F01' stroke-width='2' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M9 21H23' stroke='%23FD8F01' stroke-width='2' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    left: -2.5rem;
+    &.show {
+        left: -1rem;
+        background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M29.5 15.0003C29.5 23.0243 23.0238 29.5006 15 29.5006C6.97615 29.5006 0.5 23.0243 0.5 15.0003C0.5 6.97626 6.97615 0.5 15 0.5C23.0238 0.5 29.5 6.97626 29.5 15.0003Z' fill='white' stroke='%23E5E5E5'/%3E%3Cpath d='M17 10L12 15L17 20' stroke='%23FF9000'/%3E%3C/svg%3E%0A");
+    }
 }
+
+
 
 $filter-padding-x: 1.25rem;
 $category-color: #16405A;
@@ -217,6 +243,12 @@ $category-color: #16405A;
 .filter-parameter {
     border-top: $border-width*2 solid $border-color;
     border-bottom: $border-width*2 solid $border-color;
+    transition: opacity $toggle-filters-bar-time ease;
+    &:first-of-type {
+        border-top: none; // doesnt work when there is an element with same type
+                          // as .filter-parameter element type in child
+                          // of its parent
+     }
 }
 
 .filter-header {
@@ -365,8 +397,8 @@ $timetable-day-width-current: 26.5rem;
 }
 
 .day-card {
-    height: 200px;
     width: 100%;
+
 
     .weekday {
         color: #8B9FAC;
@@ -409,6 +441,9 @@ $event-header-font-size-secondary: 12px;
     }
     &.current {
         border-left-color: $current-event-color;
+    }
+    &:last-of-type {
+        margin-bottom: 0;
     }
 }
 
@@ -456,6 +491,10 @@ $event-header-font-size-secondary: 12px;
 
     &:first-of-type{
         margin-left: 0.5rem;
+    }
+
+    &.disabled {
+        display: none;
     }
 }
 

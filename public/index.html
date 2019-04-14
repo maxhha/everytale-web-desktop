@@ -12,147 +12,166 @@
     <title>Расписание занятий</title>
   </head>
   <body>
-    <!-- header bar -->
-    <div class= "d-flex justify-content-between timetable-header">
-        <div class="d-flex">
-            <div class="logo-top-bar">
-                <img src="/img/everytale-logo.svg">
-            </div>
+    <div class="d-flex flex-column" style="width: 100vw; height: 100vh;">
+        <!-- header bar -->
+        <div class= "flex-shrink-0 flex-grow-0 d-flex justify-content-between timetable-header">
+            <div class="d-flex">
+                <div class="logo-top-bar">
+                    <img src="/img/everytale-logo.svg">
+                </div>
 
-            <div class="d-flex d-flex-row timetable-view-week">
-                <h4 class="d-none d-md-block">Расписание занятий</h4>
+                <div class="d-flex d-flex-row timetable-view-week">
+                    <h4 class="d-none d-md-block">Расписание занятий</h4>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="d-flex timetable-mainmenu">
+                    <a class="selected">
+                        Расписание
+                    </a>
+                    <a>
+                        Библиотека
+                    </a>
+                </div>
+                <div class="search-btn"></div>
+                <div class="profile-small">
+                    <img src="/img/profile.png">
+                </div>
             </div>
         </div>
-        <div class="d-flex">
-            <div class="d-flex timetable-mainmenu">
-                <a class="selected">
-                    Расписание
-                </a>
-                <a>
-                    Библиотека
-                </a>
+        <!--/ header bar -->
+
+        <div class="d-flex row-flex-xl-nowrap content">
+
+            <div class = "filter-sidebar">
+                <span style="left:100%; position:relative; top: 0.5rem;">
+                    <div class="toggle-filters-menu-btn show"></div>
+                </span>
+
+                <div class="filter-parameter">
+                    <div class="filter-header">
+                        <div class="d-flex">
+                            <img src="/img/eye.svg">
+                            <h5>Подключенный список</h5>
+                        </div>
+                    </div>
+                    <ul class="filter-categories-list">
+                        <li class="filter-category">
+                            <div class="d-flex justify-content-between category-header">
+                                <h5 class="category-name">МГТУ им Н.Э. Баумана</h5>
+                                <div class="open-category-btn">
+                                    <div class="chevron"></div>
+                                </div>
+                            </div>
+                            <div class="category-positions">
+                                <div class="collapse">
+                                    <input type="checkbox" checked id="fruit1" class="list-checkbox">
+                                    <label for="fruit1">ИУ9-43Б</label>
+                                    <input type="checkbox" id="fruit2" class="list-checkbox">
+                                    <label for="fruit2">Технопарк Python-14</label>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="filter-category">
+                            <div class="d-flex justify-content-between category-header">
+                                <h5 class="category-name">Digital Conference</h5>
+                                <div class="open-category-btn">
+                                    <div class="chevron"></div>
+                                </div>
+                            </div>
+                            <div class="category-positions">
+                                <div class="collapse">
+                                    <input type="checkbox" checked id="fruit1" class="list-checkbox">
+                                    <label for="fruit1">ИУ9-43Б</label>
+                                    <input type="checkbox" id="fruit2" class="list-checkbox">
+                                    <label for="fruit2">Технопарк Python-14</label>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="search-btn">
-                <img src="/img/search-icon.svg">
-            </div>
-            <div class="profile-small">
-                <img src="/img/profile.png">
+
+            <div class="week-list-scroll">
+                <div class="day-place current">
+                    <div class="day-card">
+
+                        <div class="d-flex justify-content-between day-header">
+                            <div class="weekday">
+                                Понедельник
+                            </div>
+                            <div class="d-flex justify-content-between flex-grow-1">
+                                <div class="date">15.04</div>
+                                <div class="today-label">Сегодня</div>
+                            </div>
+                        </div>
+
+                        <div class="timetable-event">
+                            <div class="d-flex event-header">
+                                <div class="flex-shrink-0 flex-grow-0">
+                                    <div class="event-start-time">8:30</div>
+                                    <div class="event-finish-time">10:05</div>
+                                </div>
+                                <a class="event-name" href="#">Обыкновенные дифференциальные уравнения</a>
+                            </div>
+                            <div class="d-flex justify-content-between event-icons-bar">
+                                <div class="d-flex">
+                                    <span class="event-icon icon-lecturer"></span>
+                                    <span class="event-icon icon-place"></span>
+                                    <span class="event-icon icon-info"></span>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <span class="event-icon icon-paper disabled"></span>
+                                    <span class="event-icon icon-clip"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timetable-event">
+                            <div class="d-flex event-header">
+                                <div class="flex-shrink-0 flex-grow-0">
+                                    <div class="event-start-time">8:30</div>
+                                    <div class="event-finish-time">10:05</div>
+                                </div>
+                                <a class="event-name" href="#">Обыкновенные дифференциальные уравнения</a>
+                            </div>
+                            <div class="d-flex justify-content-between event-icons-bar">
+                                <div class="d-flex">
+                                    <span class="event-icon icon-lecturer"></span>
+                                    <span class="event-icon icon-place"></span>
+                                    <span class="event-icon icon-info"></span>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <span class="event-icon icon-paper disabled"></span>
+                                    <span class="event-icon icon-clip"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="day-place">
+                    <div class="day-card">
+                        <div class="d-flex justify-content-between day-header">
+                            <div class="weekday">
+                                Понедельник
+                            </div>
+
+                            <div class="d-flex justify-content-between flex-grow-1">
+                                <div class="date">15.04</div>
+                                <div class="today-label">Сегодня</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="day-place"></div>
+                <div class="day-place"></div>
+                <div class="day-place"></div>
+                <div class="day-place"></div>
+                <div class="day-place"></div>
             </div>
         </div>
     </div>
-    <!--/ header bar -->
-
-    <div class="d-flex row-flex-xl-nowrap content">
-
-        <div class = "filter-sidebar">
-            <div style="left:100%; position:relative; top: 0.5rem;">
-                <div class="close-filters-menu-btn"></div>
-            </div>
-
-            <div class="filter-parameter">
-                <div class="filter-header">
-                    <div class="d-flex">
-                        <img src="/img/eye.svg">
-                        <h5>Подключенный список</h5>
-                    </div>
-                </div>
-                <ul class="filter-categories-list">
-                    <li class="filter-category">
-                        <div class="d-flex justify-content-between category-header">
-                            <h5 class="category-name">МГТУ им Н.Э. Баумана</h5>
-                            <div class="open-category-btn">
-                                <div class="chevron"></div>
-                            </div>
-                        </div>
-                        <div class="category-positions">
-                            <div class="collapse">
-                                <input type="checkbox" checked id="fruit1" class="list-checkbox">
-                                <label for="fruit1">ИУ9-43Б</label>
-                                <input type="checkbox" id="fruit2" class="list-checkbox">
-                                <label for="fruit2">Технопарк Python-14</label>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="filter-category">
-                        <div class="d-flex justify-content-between category-header">
-                            <h5 class="category-name">Digital Conference</h5>
-                            <div class="open-category-btn">
-                                <div class="chevron"></div>
-                            </div>
-                        </div>
-                        <div class="category-positions">
-                            <div class="collapse">
-                                <input type="checkbox" checked id="fruit1" class="list-checkbox">
-                                <label for="fruit1">ИУ9-43Б</label>
-                                <input type="checkbox" id="fruit2" class="list-checkbox">
-                                <label for="fruit2">Технопарк Python-14</label>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-
-        <div class="week-list-scroll">
-            <div class="day-place current">
-                <div class="day-card">
-
-                    <div class="d-flex justify-content-between day-header">
-                        <div class="weekday">
-                            Понедельник
-                        </div>
-                        <div class="d-flex justify-content-between flex-grow-1">
-                            <div class="date">15.04</div>
-                            <div class="today-label">Сегодня</div>
-                        </div>
-                    </div>
-
-                    <div class="timetable-event">
-                        <div class="d-flex event-header">
-                            <div class="flex-shrink-0 flex-grow-0">
-                                <div class="event-start-time">8:30</div>
-                                <div class="event-finish-time">10:05</div>
-                            </div>
-                            <a class="event-name" href="#">Обыкновенные дифференциальные уравнения</a>
-                        </div>
-                        <div class="d-flex justify-content-between event-icons-bar">
-                            <div class="d-flex">
-                                <span class="event-icon icon-lecturer"></span>
-                                <span class="event-icon icon-place"></span>
-                                <span class="event-icon icon-info"></span>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <span class="event-icon icon-paper disabled"></span>
-                                <span class="event-icon icon-clip"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="day-place">
-                <div class="day-card">
-                    <div class="d-flex justify-content-between day-header">
-                        <div class="weekday">
-                            Понедельник
-                        </div>
-
-                        <div class="d-flex justify-content-between flex-grow-1">
-                            <div class="date">15.04</div>
-                            <div class="today-label">Сегодня</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="day-place"></div>
-            <div class="day-place"></div>
-            <div class="day-place"></div>
-            <div class="day-place"></div>
-            <div class="day-place"></div>
-        </div>
-    </div>
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -171,7 +190,22 @@
             }
         });
 
-        $(".collapse")
+        $(".toggle-filters-menu-btn").on("click", function(){
+            if ($(this).is('.show')) {
+                $(this).removeClass("show");
+                $(".filter-sidebar").addClass('hidden');
+                $(".filter-parameter").css("display", 'none');
+            } else {
+                $(this).addClass("show");
+                $(".filter-sidebar").removeClass('hidden');
+                $(".filter-parameter").css("display", 'none');
+            }
+        });
+        $(".filter-sidebar").on('transitionend', function(){
+            if (!$(this).is('.hidden')){
+                $(".filter-parameter").css("display", 'block');
+            }
+        });
     </script>
   </body>
 </html>
