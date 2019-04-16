@@ -426,7 +426,8 @@ $old-event-color: theme-color(primary);
 $current-event-color: #34BDB7;
 $upcoming-event-color: #FFC300;
 $event-header-font-size-primary: 15px;
-$event-header-font-size-secondary: 12px;
+$event-header-font-size-secondary: 14px;
+$event-icon-full-height: 2rem;
 
 .timetable-event {
     font-family: $font-family-base;
@@ -446,6 +447,24 @@ $event-header-font-size-secondary: 12px;
     &:last-of-type {
         margin-bottom: 0;
     }
+
+    &:hover .event-info {
+        flex-flow: column;
+        .event-icon {
+            margin-left: 0.5rem;
+        }
+
+        .event-icon + label {
+            display: block;
+        }
+        height: $event-icon-full-height * 3;
+    }
+}
+
+.event-info {
+    height: $event-icon-full-height;
+    overflow-y: hidden;
+    transition: height 0.35s ease;
 }
 
 .event-header {
@@ -481,7 +500,7 @@ $event-header-font-size-secondary: 12px;
 }
 
 .event-icon {
-    content: "";
+    content: " ";
     width: 1rem;
     height: 1rem;
     margin: 0.5rem;
@@ -489,6 +508,7 @@ $event-header-font-size-secondary: 12px;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+    flex-shrink: 0;
 
     &:first-of-type{
         margin-left: 0.5rem;
@@ -497,6 +517,24 @@ $event-header-font-size-secondary: 12px;
     &.disabled {
         display: none;
     }
+}
+
+.info-position {
+    display: flex;
+    label {
+        display: none;
+        align-self: center;
+
+        font-style: normal;
+        font-weight: 300;
+        font-size: $event-header-font-size-secondary;
+        margin-bottom: 0;
+        color: #8B9FAC;
+    }
+}
+
+.disabled > .event-icon {
+    display: none;
 }
 
 .icon-lecturer {

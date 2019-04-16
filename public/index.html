@@ -106,10 +106,29 @@
                         <a class="event-name" href="{{this.url}}">{{this.name}}</a>
                     </div>
                     <div class="d-flex justify-content-between event-icons-bar">
-                        <div class="d-flex">
-                            <span class="event-icon icon-lecturer"></span>
-                            <span class="event-icon icon-place"></span>
-                            <span class="event-icon icon-info"></span>
+                        <div class="d-flex event-info">
+
+                            {{#if this.lecturer}}
+                            <div class="info-position">
+                                <div class="event-icon icon-lecturer"></div>
+                                <label title="{{this.lecturer}}">{{this.lecturer}}</label>
+                            </div>
+                            {{/if}}
+
+                            {{#if this.place}}
+                            <div class="info-position">
+                                <div class="event-icon icon-place"></div>
+                                <label title="{{this.place}}">{{this.placeShort}}</label>
+                            </div>
+                            {{/if}}
+
+                            {{#if this.info}}
+                            <div class="info-position">
+                                <div class="event-icon icon-info"></div>
+                                <label title="{{this.info}}">{{this.infoShort}}</label>
+                            </div>
+                            {{/if}}
+
                         </div>
                         <div class="d-flex justify-content-end">
                             <span class="event-icon icon-paper {{#if this.hasDocument}}{{else}}disabled{{/if}}"></span>
@@ -121,180 +140,218 @@
             </div>
         </div>
     </script>
+    <script id="weekdayNames" type="text/json">
+        ["Воскресение","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"]
+    </script>
     <!-- END Templates -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.1/handlebars.min.js" integrity="sha256-Mki72593zH3nxiQrW1mskmSOAXOep8FVIK0ozKFISyY=" crossorigin="anonymous"></script>
+    <script src="/js/sugar.min.js"></script>
     <script>
+        Sugar.extend();
+
         (function(){
+
+            var getUserFilters = function(callback){
+                // There should be a call to the server.
+                // Parsed result of the call follows below.
+                var filters = [{
+                    name: "Подключенный спискок",
+                    img : "/img/eye.svg",
+                    category: [
+                        {
+                            name: "МГТУ им Н.Э. Баумана",
+                            position: [{
+                                name: "ИУ9-43Б",
+                                id: "1"
+                            }, {
+                                name: "Технопарк Python-14",
+                                id: "2",
+                            }]
+                        },{
+                            name: "Digital Conference",
+                            position: [{
+                                name: "NLP/Machine Learning",
+                                id: "3"
+                            }]
+                        }
+                    ]
+                }];
+                callback(filters);
+            };
+
             var filterTempl = Handlebars.compile($("#filter-parameter-tmpl").html());
 
-            var filters = [{
-                name: "Подключенный спискок",
-                img : "/img/eye.svg",
-                category: [
-                    {
-                        name: "МГТУ им Н.Э. Баумана",
-                        position: [{
-                            name: "ИУ9-43Б",
-                            id: "1",
-                            checked: false
-                        }, {
-                            name: "Технопарк Python-14",
-                            id: "2",
-                            checked: false
-                        }]
-                    },{
-                        name: "Digital Conference",
-                        position: [{
-                            name: "NLP/Machine Learning",
-                            id: "3",
-                            checked: false
-                        }]
-                    }
-                ]
-            }];
-            var target = $('.filter-sidebar');
-            filters.forEach(function(filter){
-                target.append(filterTempl(filter));
-            });
+            var filtersView = function(filters){
+                var target = $('.filter-sidebar');
+                filters.forEach(function(filter){
+
+                    filter.category.forEach(function(c){
+                        c.position.forEach(function(p){
+                            /* should be checked if it is a checkbox */
+                            p.checked = true; /* so user can see all timetable */
+                        });
+                    });
+
+                    target.append(filterTempl(filter));
+                });
+            };
+
+            getUserFilters(filtersView);
         })();
 
         (function(){
+
+            var getUserTimetable = function(dates, callback){
+                // dates - array of Date()
+
+                // There should be a call to the server.
+                // Callback shuold get this array:
+                /*
+
+                var result = [{
+                    date: Date(),
+                    events: [{
+                        name: "",
+                        url: "/url/to/lecture/page",
+                        timeStart: Date(),
+                        timeFinish: Date(),
+                        lecturer: "",
+                        place: "",
+                        info: "",
+                        hasDocument: false,
+                        hasFile: false,
+                    }, ...]
+                }, ...]
+
+                */
+                /* generate some data to output */
+                var eventNames = [
+                    "Обыкновенные дифференциальные уравнения",
+                    "Операционные системы",
+                    "Алгоритмы компьютерной графики",
+                    "Дискретная математика",
+                    "Теория вероятностей",
+                    "Физика",
+                    "Программирование",
+                    "Базы данных",
+                    "Философия"
+                ];
+                var eventTimeStarts = [
+                    "8:30","10:15","11:50",
+                    "13:35", "15:20", "17:05",
+                    "18:50", "21:00"];
+
+                var lecturers = [
+                    "Аксёнов М.С.",
+                    "Лазарев Д.Г.",
+                    "Хохлов Р.А.",
+                    "Бобров Г.А.",
+                    "Новиков Ф.В."
+                ];
+
+                var places = [
+                    "СК\"Олимпийский\"",
+                    "УЛК МГТУ им Баумана",
+                    "ГК МГТУ им Баумана"];
+
+                var infos = ["",
+                    "Специальное машиностроение",
+                    "Динамическое программирование",
+                    "Линейные уравнения",
+                    "Кривые второго порядка",
+                    "Симплекс-метод",
+                    "Философия Ницше",
+                    "Моделирование движения молекул сахара в крепких растворах турецкого чая"
+                ];
+
+                var getRndIndx = function(arr){
+                    return Math.floor(Math.random() * arr.length);
+                };
+
+                function gaussianRand() {
+                  var rand = 0;
+
+                  for (var i = 0; i < 6; i += 1) {
+                    rand += Math.random();
+                  }
+
+                  return rand / 6;
+                }
+
+                result = dates.map(function(date){
+                    var day = {};
+                    day.date = date;
+                    day.events = [];
+                    var suturdayK = date.isSaturday() ? Math.random()*0.75 : 1;
+                    var sundayK = date.isSunday() ? Math.random()*0.5 : 1;
+                    var countEvents = Math.floor(suturdayK*sundayK*gaussianRand() * (eventTimeStarts.length+1));
+                    var eventTimes = []
+                    while(eventTimes.length < countEvents) {
+                        var i = getRndIndx(eventTimeStarts);
+                        if(eventTimes.indexOf(i) === -1)
+                            eventTimes.push(i);
+                    }
+
+                    eventTimes = eventTimes.sort(function(a,b){return a - b})
+                    for(var i = 0; i < eventTimes.length; i++){
+                        var event = {};
+                        event.name = eventNames[getRndIndx(eventNames)];
+                        event.url = "#";
+                        var d = new Date(date);
+
+                        var time = eventTimeStarts[eventTimes[i]]
+                            .split(":")
+                            .map(function(x){return parseInt(x)});
+
+                        d.setHours(time[0], time[1]);
+                        event.timeStart = d;
+                        event.timeFinish = new Date(d - (-90*60*1000)); //JS MAGIC
+                        event.lecturer = lecturers[getRndIndx(lecturers)];
+                        event.place = places[getRndIndx(places)];
+                        event.info = infos[getRndIndx(infos)];
+                        event.hasDocument = Math.random() < 0.5;
+                        event.hasFile = Math.random() < 0.5;
+                        day.events.push(event);
+                    }
+                    return day;
+                });
+
+                callback(result);
+            };
+
             var dayTmpl = Handlebars.compile($("#day-tmpl").html());
-            var weekdays = [{
-                name: "Понедельник",
-                date: "15.04",
-                today: true,
-                events: [{
-                    name: "Обыкновенные дифференциальные уравнения",
-                    timestart: "10:15",
-                    timefinish: "11:50",
-                    url:"#",
-                    hasDocument: true,
-                    hasFile: true
-                },{
-                    name: "Операционные системы",
-                    timestart: "10:15",
-                    timefinish: "11:50",
-                    url:"#",
-                    hasDocument: true,
-                    hasFile: true
-                },{
-                    name: "Алгоритмы компьютерной графики",
-                    timestart: "10:15",
-                    timefinish: "11:50",
-                    url:"#",
-                    hasDocument: true,
-                    hasFile: false
-                }]
-            },{
-                name: "Вторник",
-                date: "16.04",
-                today: false,
-                events: [{
-                    name: "Обыкновенные дифференциальные уравнения",
-                    timestart: "10:15",
-                    timefinish: "11:50",
-                    url:"#",
-                    hasDocument: false,
-                    hasFile: true
-                },{
-                    name: "Операционные системы",
-                    timestart: "10:15",
-                    timefinish: "11:50",
-                    url:"#",
-                    hasDocument: true,
-                    hasFile: true
-                },{
-                    name: "Алгоритмы компьютерной графики",
-                    timestart: "10:15",
-                    timefinish: "11:50",
-                    url:"#"
-                }]
-            },{
-                name: "Среда",
-                date: "17.04",
-                today: false,
-                events: [{
-                    name: "Обыкновенные дифференциальные уравнения",
-                    timestart: "10:15",
-                    timefinish: "11:50",
-                    url:"#"
-                },{
-                    name: "Операционные системы",
-                    timestart: "10:15",
-                    timefinish: "11:50",
-                    url:"#"
-                },{
-                    name: "Алгоритмы компьютерной графики",
-                    timestart: "10:15",
-                    timefinish: "11:50",
-                    url:"#"
-                }]
-            },{
-                name: "Четверг",
-                date: "18.04",
-                today: false,
-                events: [{
-                    name: "Обыкновенные дифференциальные уравнения",
-                    timestart: "10:15",
-                    timefinish: "11:50",
-                    url:"#"
-                },{
-                    name: "Операционные системы",
-                    timestart: "10:15",
-                    timefinish: "11:50",
-                    url:"#"
-                },{
-                    name: "Алгоритмы компьютерной графики",
-                    timestart: "10:15",
-                    timefinish: "11:50",
-                    url:"#"
-                }]
-            },,{
-                name: "Пятница",
-                date: "19.04",
-                today: false,
-                events: [{
-                    name: "Обыкновенные дифференциальные уравнения",
-                    timestart: "10:15",
-                    timefinish: "11:50",
-                    url:"#"
-                },{
-                    name: "Операционные системы",
-                    timestart: "10:15",
-                    timefinish: "11:50",
-                    url:"#"
-                },{
-                    name: "Алгоритмы компьютерной графики",
-                    timestart: "10:15",
-                    timefinish: "11:50",
-                    url:"#"
-                }]
-            },{
-                name: "Суббота",
-                date: "20.04",
-                today: false,
-                events: [{
-                    name: "Алгоритмы компьютерной графики",
-                    timestart: "10:15",
-                    timefinish: "11:50",
-                    url:"#"
-                }]
-            },{
-                name: "Воскресенье",
-                date: "21.04",
-                today: false,
-                events: []
-            }];
-            var target = $(".week-list-scroll")
-            weekdays.forEach(function(data){
-                target.append(dayTmpl(data));
-            });
+
+            var daysView = function(days){
+                var target = $(".week-list-scroll")
+
+                for(var i = 0; i < days.length; i++){
+                    var day = days[i];
+                    day.name = day.date.format("{Weekday}", "ru").capitalize();
+                    day.today = day.date.isToday();
+                    day.date = day.date.format("%d.%m");
+                    day.events.forEach(function(e){
+                        var mx_len = 22 + (e.hasFile ? 0:4) + (e.hasDocument ? 0:4);
+                        e.placeShort = e.place.length > mx_len ? e.place.first(mx_len) + '...' : e.place;
+                        e.infoShort = e.info.length > mx_len ? e.info.first(mx_len) + '...' : e.info;
+                        e.timestart = e.timeStart.format("%R");
+                        e.timefinish = e.timeFinish.format("%R");
+                    });
+                    target.append(dayTmpl(day));
+                }
+            };
+
+            var dates = [];
+            for(var i = 0; i < 7; i++){
+                dates.push(new Date().addDays(i));
+            }
+
+            getUserTimetable(dates, daysView);
         })();
 
+        /* UI listeners */
         $(".category-header").on("click", function(){
             if ($(this).is('.show')) {
                 $(this).removeClass("show");
