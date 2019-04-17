@@ -461,10 +461,28 @@ $event-icon-full-height: 2rem;
     }
 }
 
-.event-info {
-    height: $event-icon-full-height;
-    overflow-y: hidden;
-    transition: height 0.35s ease;
+.event-online {
+    font-family: $font-family-base;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 22px;
+    font-size: $event-header-font-size-secondary;
+    text-align: right;
+    padding-right: 1rem;
+    margin-bottom: 0.25rem;
+
+    color: $current-event-color;
+    &::after {
+        content: "";
+        width: 4px;
+        height: 4px;
+        border: 2px solid $current-event-color;
+        border-radius: 2px;
+        display: inline-block;
+        position: relative;
+        bottom: 2px;
+        left: 0.5rem;
+    }
 }
 
 .event-header {
@@ -497,6 +515,12 @@ $event-icon-full-height: 2rem;
 
 .event-icons-bar {
     padding: 0 0.5rem;
+}
+
+.event-info {
+    height: $event-icon-full-height;
+    overflow-y: hidden;
+    transition: height 0.35s ease;
 }
 
 .event-icon {

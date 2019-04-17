@@ -97,7 +97,15 @@
                     </div>
                 </div>
                 {{#each events}}
-                <div class="timetable-event">
+
+                {{#if this.isOnline}}
+                <div class="event-online">Сейчас онлайн</div>
+                {{else}}
+                    {{#if this.isCurrent}}
+                        <!-- Трансляция вот-вот начнётся-->
+                    {{/if}}
+                {{/if}}
+                <div class="timetable-event {{#if this.isCurrent}}current{{/if}} {{#if this.isUpcoming}}upcoming{{/if}}">
                     <div class="d-flex event-header">
                         <div class="flex-shrink-0 flex-grow-0">
                             <div class="event-start-time">{{this.timestart}}</div>
@@ -223,6 +231,7 @@
                         info: "",
                         hasDocument: false,
                         hasFile: false,
+                        isOnline: false
                     }, ...]
                 }, ...]
 
@@ -314,6 +323,8 @@
                         event.info = infos[getRndIndx(infos)];
                         event.hasDocument = Math.random() < 0.5;
                         event.hasFile = Math.random() < 0.5;
+                        event.isOnline = event.timeStart <= Date.now()
+                            && Date.now() <= event.timeFinish;
                         day.events.push(event);
                     }
                     return day;
@@ -338,17 +349,32 @@
                         e.infoShort = e.info.length > mx_len ? e.info.first(mx_len) + '...' : e.info;
                         e.timestart = e.timeStart.format("%R");
                         e.timefinish = e.timeFinish.format("%R");
+                        if (e.timeStart <= Date.now()) {
+                            if (Date.now() <= e.timeFinish) {
+                                e.isCurrent = true
+                            }
+                        } else {
+                            e.isUpcoming = true;
+                        }
+
+
                     });
                     target.append(dayTmpl(day));
                 }
             };
 
-            var dates = [];
-            for(var i = 0; i < 7; i++){
-                dates.push(new Date().addDays(i));
-            }
+            window.reloadTimetable = function(dateStart){
+                var dates = [];
+                var d = dateStart || new Date();
+                d = d.addDays(1-d.getDay());
+                for(var i = 0; i < 7; i++){
+                    dates.push(new Date(d).addDays(i));
+                }
+                $(".day-place").remove();
 
-            getUserTimetable(dates, daysView);
+                getUserTimetable(dates, daysView);
+            }
+            reloadTimetable();
         })();
 
         /* UI listeners */
@@ -379,6 +405,7 @@
                 $(".filter-parameter").css("display", 'block');
             }
         });
+
 
     </script>
   </body>
