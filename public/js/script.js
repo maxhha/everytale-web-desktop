@@ -304,10 +304,7 @@ Sugar.extend();
     window.filterTimetable = filterTimetable;
 
     reloadTimetable().then(function(){
-        var delta = $(".day-place.current").offset().left - $(".week-list-scroll").offset().left;
-        if (Math.abs(delta) > 32)
-            $(".week-list-scroll").scrollLeft(delta);
-
+        $(".week-list-scroll").scrollTo($(".day-place.current"),0, {axis:"x"});
     });
 
 })();
@@ -404,12 +401,7 @@ $(".filter-sidebar").on('transitionend', function(){
                 return window.filterTimetable(window.Filters)
             })
             .then(function(){
-                var delta = $(".day-place.current").offset().left - $(".week-list-scroll").offset().left;
-
-                if (Math.abs(delta) > 32)
-                    $(".week-list-scroll").animate({
-                        scrollLeft: delta
-                    }, 1000)
+                $(".week-list-scroll").scrollTo($(".day-place.current"), 1000, {axis:"x"});
         });
     });
 
