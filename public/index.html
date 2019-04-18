@@ -22,6 +22,15 @@
 
                 <div class="d-flex d-flex-row timetable-view-week">
                     <h4 class="d-none d-md-block">Расписание занятий</h4>
+                    <div class="d-flex justify-content-between week-switch">
+                        <div class="week-btn prev-week-btn">
+                            <div class="chevron"></div>
+                        </div>
+                        <label>25 февраля - 3 марта</label>
+                        <div class="week-btn next-week-btn">
+                            <div class="chevron"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="d-flex">
@@ -52,7 +61,11 @@
             <div class="week-list-scroll"></div>
         </div>
     </div>
-    <!-- Templates -->
+
+    <!--- - - - - - - - - - - - - - - - - - - - -->
+    <!--|               Templates             | -->
+    <!--- - - - - - - - - - - - - - - - - - - - -->
+
     <script id="filter-parameter-tmpl" type="text/x-handlebars-template">
         <div class="filter-parameter">
             <div class="filter-header">
@@ -61,26 +74,26 @@
                     <h5>{{name}}</h5>
                 </div>
             </div>
-            <ul class="filter-categories-list">
-                {{#each category}}
-                <li class="filter-category">
-                    <div class="d-flex justify-content-between category-header">
-                        <h5 class="category-name">{{this.name}}</h5>
-                        <div class="open-category-btn">
-                            <div class="chevron"></div>
-                        </div>
-                    </div>
-                    <div class="category-positions">
-                        <div class="collapse">
-                            {{#each position}}
-                            <input type="checkbox" id="param{{this.id}}" class="list-checkbox" {{#if this.checked}}checked{{/if}}>
-                            <label for="param{{this.id}}">{{this.name}}</label>
-                            {{/each}}
-                        </div>
-                    </div>
-                </li>
-                {{/each}}
-            </ul>
+            <ul class="filter-categories-list"></ul>
+        </div>
+    </script>
+    <script id="filter-category-tmpl" type="text/x-handlebars-template">
+        <li class="filter-category">
+            <div class="d-flex justify-content-between category-header">
+                <h5 class="category-name">{{name}}</h5>
+                <div class="open-category-btn">
+                    <div class="chevron"></div>
+                </div>
+            </div>
+            <div class="category-positions">
+                <div class="collapse category-positions-list"></div>
+            </div>
+        </li>
+    </script>
+    <script id="filter-checkbox-tmpl" type="text/x-handlebars-template">
+        <div>
+            <input type="checkbox" id="param{{id}}" class="list-checkbox" {{#if checked}}checked{{/if}}>
+            <label for="param{{id}}">{{name}}</label>
         </div>
     </script>
     <script id="day-tmpl" type="text/x-handlebars-template">
@@ -96,60 +109,56 @@
                         <div class="today-label">Сегодня</div>
                     </div>
                 </div>
-                {{#each events}}
-
-                {{#if this.isOnline}}
-                <div class="event-online">Сейчас онлайн</div>
-                {{else}}
-                    {{#if this.isCurrent}}
-                        <!-- Трансляция вот-вот начнётся-->
-                    {{/if}}
-                {{/if}}
-                <div class="timetable-event {{#if this.isCurrent}}current{{/if}} {{#if this.isUpcoming}}upcoming{{/if}}">
-                    <div class="d-flex event-header">
-                        <div class="flex-shrink-0 flex-grow-0">
-                            <div class="event-start-time">{{this.timestart}}</div>
-                            <div class="event-finish-time">{{this.timefinish}}</div>
-                        </div>
-                        <a class="event-name" href="{{this.url}}">{{this.name}}</a>
-                    </div>
-                    <div class="d-flex justify-content-between event-icons-bar">
-                        <div class="d-flex event-info">
-
-                            {{#if this.lecturer}}
-                            <div class="info-position">
-                                <div class="event-icon icon-lecturer"></div>
-                                <label title="{{this.lecturer}}">{{this.lecturer}}</label>
-                            </div>
-                            {{/if}}
-
-                            {{#if this.place}}
-                            <div class="info-position">
-                                <div class="event-icon icon-place"></div>
-                                <label title="{{this.place}}">{{this.placeShort}}</label>
-                            </div>
-                            {{/if}}
-
-                            {{#if this.info}}
-                            <div class="info-position">
-                                <div class="event-icon icon-info"></div>
-                                <label title="{{this.info}}">{{this.infoShort}}</label>
-                            </div>
-                            {{/if}}
-
-                        </div>
-                        <div class="d-flex justify-content-end">
-                            <span class="event-icon icon-paper {{#if this.hasDocument}}{{else}}disabled{{/if}}"></span>
-                            <span class="event-icon icon-clip {{#if this.hasFile}}{{else}}disabled{{/if}}"></span>
-                        </div>
-                    </div>
-                </div>
-                {{/each}}
             </div>
         </div>
     </script>
-    <script id="weekdayNames" type="text/json">
-        ["Воскресение","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"]
+    <script id="event-tmpl" type="text/x-handlebars-template">
+        {{#if isOnline}}
+            <div class="event-online">Сейчас онлайн</div>
+        {{else}}
+            {{#if isCurrent}}
+                <!-- Трансляция вот-вот начнётся-->
+            {{/if}}
+        {{/if}}
+        <div class="timetable-event {{#if isCurrent}}current{{/if}} {{#if isUpcoming}}upcoming{{/if}}">
+            <div class="d-flex event-header">
+                <div class="flex-shrink-0 flex-grow-0">
+                    <div class="event-start-time">{{timestart}}</div>
+                    <div class="event-finish-time">{{timefinish}}</div>
+                </div>
+                <a class="event-name" href="{{this.url}}">{{name}}</a>
+            </div>
+            <div class="d-flex justify-content-between event-icons-bar">
+                <div class="d-flex event-info">
+
+                    {{#if lecturer}}
+                    <div class="info-position">
+                        <div class="event-icon icon-lecturer"></div>
+                        <label title="{{lecturer}}">{{lecturer}}</label>
+                    </div>
+                    {{/if}}
+
+                    {{#if place}}
+                    <div class="info-position">
+                        <div class="event-icon icon-place"></div>
+                        <label title="{{place}}">{{placeShort}}</label>
+                    </div>
+                    {{/if}}
+
+                    {{#if info}}
+                    <div class="info-position">
+                        <div class="event-icon icon-info"></div>
+                        <label title="{{info}}">{{infoShort}}</label>
+                    </div>
+                    {{/if}}
+
+                </div>
+                <div class="d-flex justify-content-end">
+                    <span class="event-icon icon-paper {{#if hasDocument}}{{else}}disabled{{/if}}"></span>
+                    <span class="event-icon icon-clip {{#if hasFile}}{{else}}disabled{{/if}}"></span>
+                </div>
+            </div>
+        </div>
     </script>
     <!-- END Templates -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -173,16 +182,19 @@
                             name: "МГТУ им Н.Э. Баумана",
                             position: [{
                                 name: "ИУ9-43Б",
-                                id: "1"
+                                type: "matchCourseID",
+                                courseID: 0
                             }, {
                                 name: "Технопарк Python-14",
-                                id: "2",
+                                type: "matchCourseID",
+                                courseID: 1
                             }]
                         },{
                             name: "Digital Conference",
                             position: [{
                                 name: "NLP/Machine Learning",
-                                id: "3"
+                                type: "matchCourseID",
+                                courseID: 2
                             }]
                         }
                     ]
@@ -190,24 +202,66 @@
                 callback(filters);
             };
 
+            var Filters = [];
+
+            var filterViews = {
+                "checkbox": Handlebars.compile($("#filter-checkbox-tmpl").html())
+            }
+
+            var positionTypes = {
+                "matchCourseID": function(filter){
+                    var id = filter.courseID;
+                    filter.checked = true;
+                    var view = $(filterViews.checkbox(filter));
+                    var checkbox = view.find("input");
+
+                    var f = {};
+
+                    f.match = function(e){
+                        if (!checkbox.is(':checked'))
+                            return false;
+                        return e.courseID === id;
+                    }
+
+                    return {view: view, filter: f};
+                }
+            };
+
             var filterTempl = Handlebars.compile($("#filter-parameter-tmpl").html());
+            var categoryTempl = Handlebars.compile($("#filter-category-tmpl").html());
+            var positionID = 0; // global counter
 
             var filtersView = function(filters){
                 var target = $('.filter-sidebar');
                 filters.forEach(function(filter){
+                    var filterNode = $(filterTempl(filter));
 
                     filter.category.forEach(function(c){
+
+                        var category = $(categoryTempl(c));
+                        var posList = category.find('.category-positions-list');
+
                         c.position.forEach(function(p){
-                            /* should be checked if it is a checkbox */
-                            p.checked = true; /* so user can see all timetable */
+                            if (positionTypes.hasOwnProperty(p.type)) {
+                                p.id = positionID++;
+                                var position = positionTypes[p.type](p);
+                                posList.append(position.view);
+                                Filters.push(position.filter);
+                            } else {
+                                console.warn("Unknown filter position type: "+p.type);
+                            }
                         });
+
+                        filterNode.append(category);
                     });
 
-                    target.append(filterTempl(filter));
+                    target.append(filterNode);
                 });
             };
 
             getUserFilters(filtersView);
+
+            window.Filters = Filters;
         })();
 
         (function(){
@@ -223,6 +277,7 @@
                     date: Date(),
                     events: [{
                         name: "",
+                        courseID: 10,
                         url: "/url/to/lecture/page",
                         timeStart: Date(),
                         timeFinish: Date(),
@@ -273,7 +328,7 @@
                     "Кривые второго порядка",
                     "Симплекс-метод",
                     "Философия Ницше",
-                    "Моделирование движения молекул сахара в крепких растворах турецкого чая"
+                    "Изучение движения молекул сахара в крепких растворах турецкого чая"
                 ];
 
                 var getRndIndx = function(arr){
@@ -308,6 +363,7 @@
                     for(var i = 0; i < eventTimes.length; i++){
                         var event = {};
                         event.name = eventNames[getRndIndx(eventNames)];
+                        event.courseID = event.name.match(/[пП]/) ? 1 : 0;
                         event.url = "#";
                         var d = new Date(date);
 
@@ -325,7 +381,9 @@
                         event.hasFile = Math.random() < 0.5;
                         event.isOnline = event.timeStart <= Date.now()
                             && Date.now() <= event.timeFinish;
+
                         day.events.push(event);
+
                     }
                     return day;
                 });
@@ -334,15 +392,20 @@
             };
 
             var dayTmpl = Handlebars.compile($("#day-tmpl").html());
+            var eventTmpl = Handlebars.compile($("#event-tmpl").html());
+            var Events = [];
 
             var daysView = function(days){
                 var target = $(".week-list-scroll")
-
+                Events = [];
                 for(var i = 0; i < days.length; i++){
                     var day = days[i];
                     day.name = day.date.format("{Weekday}", "ru").capitalize();
                     day.today = day.date.isToday();
                     day.date = day.date.format("%d.%m");
+                    var node = $(dayTmpl(day));
+                    var eventList = node.find(".day-card");
+
                     day.events.forEach(function(e){
                         var mx_len = 22 + (e.hasFile ? 0:4) + (e.hasDocument ? 0:4);
                         e.placeShort = e.place.length > mx_len ? e.place.first(mx_len) + '...' : e.place;
@@ -356,24 +419,46 @@
                         } else {
                             e.isUpcoming = true;
                         }
+                        e.viewNode = $(eventTmpl(e));
+                        eventList.append(e.viewNode);
 
-
+                        Events.push(e);
                     });
-                    target.append(dayTmpl(day));
+                    target.append(node)
                 }
+
             };
 
-            window.reloadTimetable = function(dateStart){
+            var reloadTimetable = function(dateStart){
                 var dates = [];
-                var d = dateStart || new Date();
-                d = d.addDays(1-d.getDay());
+                var d = dateStart || new Date().beginningOfWeek().addDays(1);
+
                 for(var i = 0; i < 7; i++){
                     dates.push(new Date(d).addDays(i));
                 }
                 $(".day-place").remove();
 
                 getUserTimetable(dates, daysView);
-            }
+            };
+
+            var filterTimetable = function(filters){
+                Events.forEach(function(e){
+                    var show = false;
+                    filters.forEach(function(f){
+                        show = show || f.match(e);
+                    });
+
+                    if (show) {
+                        e.viewNode.show();
+                    } else {
+                        e.viewNode.hide();
+                    }
+                });
+            };
+
+            window.reloadTimetable = reloadTimetable;
+            window.filterTimetable = filterTimetable;
+
             reloadTimetable();
         })();
 
@@ -406,6 +491,36 @@
             }
         });
 
+        (function(){
+            var viewingWeek = new Date();
+            viewingWeek = viewingWeek.beginningOfWeek().addDays(1);
+
+            var labelWeek = $('.week-switch label');
+
+            var viewWeek = function(w){
+                labelWeek.text(w.format("%d %B",'ru') + ' - ' + (new Date(w).addDays(6)).format("%d %B",'ru'));
+            };
+
+            viewWeek(viewingWeek);
+
+            $(".prev-week-btn").on("click", function(){
+                viewingWeek = viewingWeek.addDays(-7);
+                viewWeek(viewingWeek);
+                window.reloadTimetable(viewingWeek);
+                window.filterTimetable(window.Filters);
+            });
+
+            $(".next-week-btn").on("click", function(){
+                viewingWeek = viewingWeek.addDays(7);
+                viewWeek(viewingWeek);
+                window.reloadTimetable(viewingWeek);
+                window.filterTimetable(window.Filters);
+            });
+        })();
+
+        $(".filter-sidebar input").on("change", function(){
+            window.filterTimetable(window.Filters);
+        });
 
     </script>
   </body>

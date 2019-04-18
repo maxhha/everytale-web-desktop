@@ -181,6 +181,59 @@ $top-bar-height: 3rem;
          border-width: 2px;
     }
 }
+
+.week-switch {
+
+    margin-left: 2rem;
+    height: 2rem;
+    min-width: 13rem;
+    border: 1px solid $white;
+    border-radius: 1rem;
+
+    .chevron {
+        background-image: url("data:image/svg+xml,%3Csvg width='7' height='12' viewBox='0 0 7 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.00049L6 6.00059L1 11.0007' stroke='white'/%3E%3C/svg%3E");
+        margin: auto 0.5rem;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 7px;
+        height: 12px;
+        position: relative;
+        transition: left 0.2s ease;
+        left: 0rem;
+    }
+
+    label {
+        text-align: center;
+    }
+
+    .week-btn {
+        padding-right: 1rem;
+        height: 2rem;
+        display: flex;
+
+        cursor: pointer;
+
+        &:hover .chevron{
+            left: 1rem;
+        }
+    }
+
+    .prev-week-btn {
+        transform: scaleX(-1);
+
+    }
+
+    font-family: $font-family-base;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 2rem;
+
+    color: $white;
+
+
+}
 /*---------- END Timetable header ----------*/
 
 
@@ -425,8 +478,8 @@ $timetable-day-width-current: 26.5rem;
 $old-event-color: theme-color(primary);
 $current-event-color: #34BDB7;
 $upcoming-event-color: #FFC300;
-$event-header-font-size-primary: 15px;
-$event-header-font-size-secondary: 14px;
+$event-header-font-size-primary: 14px;
+$event-header-font-size-secondary: 12px;
 $event-icon-full-height: 2rem;
 
 .timetable-event {
@@ -489,6 +542,10 @@ $event-icon-full-height: 2rem;
     padding: 0.75rem 1rem;
     line-height: 26px;
     border-bottom: $border-width solid $border-color;
+    a:hover {
+        color: $black;
+        text-decoration: none;
+    }
 }
 
 .event-start-time {
