@@ -183,12 +183,26 @@ $top-bar-height: 3rem;
 }
 
 .week-switch {
-
-    margin-left: 2rem;
     height: 2rem;
     min-width: 13rem;
+
+    margin-left: 2rem;
     border: 1px solid $white;
     border-radius: 1rem;
+    background-color: theme-color(primary);
+
+    transition: background-color 0.35s ease;
+
+    color: $white;
+
+    &.current-week {
+        color: theme-color(primary);
+        border-color: theme-color(primary);
+        background-color: $white;
+        .chevron {
+            background-image: url("data:image/svg+xml,%3Csvg width='7' height='12' viewBox='0 0 7 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.00049L6 6.00059L1 11.0007' stroke='"+encodecolor(theme-color(primary))+"'/%3E%3C/svg%3E");
+        }
+    }
 
     .chevron {
         background-image: url("data:image/svg+xml,%3Csvg width='7' height='12' viewBox='0 0 7 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.00049L6 6.00059L1 11.0007' stroke='white'/%3E%3C/svg%3E");
@@ -205,17 +219,25 @@ $top-bar-height: 3rem;
 
     label {
         text-align: center;
+        margin-bottom: 0;
+        font-family: $font-family-base;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 29px;
     }
 
     .week-btn {
-        padding-right: 1rem;
+        padding-right: 0.5rem;
         height: 2rem;
         display: flex;
+        position: relative;
+        top: -1px;
 
         cursor: pointer;
 
         &:hover .chevron{
-            left: 1rem;
+            left: 0.5rem;
         }
     }
 
@@ -223,17 +245,40 @@ $top-bar-height: 3rem;
         transform: scaleX(-1);
 
     }
+}
 
+.current-week + .to-today-btn {
+    opacity: 0;
+    width: 0px;
+}
+
+.to-today-btn {
+    height: 2rem;
+    width: 106px;
+    opacity: 1;
+
+    margin-left: 2rem;
+    background-color: $white;
+    border: 1px solid theme-color(primary);
+    border-radius: 1rem;
+
+    cursor: pointer;
+
+    color: theme-color(primary);
+
+    text-align: center;
+    margin-bottom: 0;
     font-family: $font-family-base;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
-    line-height: 2rem;
+    line-height: 29px;
 
-    color: $white;
-
-
+    overflow-x: hidden;
+    overflow-y: hidden;
+    transition: width 0.35s ease, opacity 0.35s ease;
 }
+
 /*---------- END Timetable header ----------*/
 
 
@@ -263,7 +308,8 @@ $toggle-filters-bar-time: 0.35s;
         flex: 0 1 331px;
     }
     z-index:1000;
-    transition: flex-basis $toggle-filters-bar-time ease, box-shadow $toggle-filters-bar-time ease;
+    transition: flex-basis $toggle-filters-bar-time ease,
+                box-shadow $toggle-filters-bar-time ease;
     &.hidden {
         flex-basis: 3rem;
         overflow-x: hidden;
@@ -299,7 +345,7 @@ $category-color: #16405A;
     transition: opacity $toggle-filters-bar-time ease;
     display: none;
     &:first-of-type {
-        border-top: none; // doesnt work when there is an element with same type
+        border-top: none; // BUG: doesnt work when there is an element with same type
                           // as .filter-parameter element type in child
                           // of its parent
      }
