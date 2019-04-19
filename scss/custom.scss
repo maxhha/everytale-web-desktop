@@ -1,7 +1,12 @@
 @import "../bootstrap/scss/functions";
 @import "../bootstrap/scss/variables";
 
-/*---------- Customized parameters ----------*/
+//+----------------------------------------------------------------------------+
+//|                                                                            |
+//+                           Customized Parameters                            +
+//|                                                                            |
+//+----------------------------------------------------------------------------+
+
 $theme-colors : (
     "primary": #FF9000
 );
@@ -12,11 +17,13 @@ $border-width: 0.5px;
 $border-color: #E5E5E5;
 $font-family-base: Montserrat, Roboto, Arial, sans-serif;
 
-/*---------- END Customized parameters ----------*/
-
 @import "../bootstrap/scss/bootstrap";
 
-/* ---------- Custom fonts init ---------- */
+//+----------------------------------------------------------------------------+
+//|                                                                            |
+//+                           Custom fonts init                                +
+//|                                                                            |
+//+----------------------------------------------------------------------------+
 @font-face {
     font-family: 'EtelkaTextPro';
     src: local('EtelkaTextPro'),
@@ -25,10 +32,11 @@ $font-family-base: Montserrat, Roboto, Arial, sans-serif;
 
 $font-family-heading: 'EtelkaTextPro';
 
-/* ---------- END Custom fonts init ---------- */
-
-
-/* ---------- Helpful functions and mixins ------------*/
+//+----------------------------------------------------------------------------+
+//|                                                                            |
+//+                     Helpful functions and mixins                           +
+//|                                                                            |
+//+----------------------------------------------------------------------------+
 @function encodecolor($string) {
    @if type-of($string) == 'color' {
         $hex: str-slice(ie-hex-str($string), 4);
@@ -45,9 +53,6 @@ $font-family-heading: 'EtelkaTextPro';
     background-repeat: no-repeat;
     background-position: center;
 }
-/* ---------- END Helpful functions and mixins ------------*/
-
-
 
 ///*---------- Small screen blocker ----------*/
 // body{
@@ -62,8 +67,11 @@ $font-family-heading: 'EtelkaTextPro';
 //     margin-bottom: 0 !important;
 // }
 
-
-/*---------- Custom checkbox -----------*/
+//+----------------------------------------------------------------------------+
+//|                                                                            |
+//+                            Custom checkbox                                 +
+//|                                                                            |
+//+----------------------------------------------------------------------------+
 input[type="checkbox"].list-checkbox{
   display:none;
 
@@ -114,11 +122,11 @@ input[type="checkbox"].list-checkbox{
     box-shadow: none;
   }
 }
-/*---------- END Custom checkbox -----------*/
-
-
-
-/*---------- Timetable header ----------*/
+//+----------------------------------------------------------------------------+
+//|                                                                            |
+//+                              Timetable header                              +
+//|                                                                            |
+//+----------------------------------------------------------------------------+
 $top-bar-height: 3rem;
 .timetable-header {
     width: 100%;
@@ -219,12 +227,12 @@ $top-bar-height: 3rem;
 
     label {
         text-align: center;
-        margin-bottom: 0;
+        margin: auto 0;
         font-family: $font-family-base;
         font-style: normal;
         font-weight: normal;
         font-size: 14px;
-        line-height: 29px;
+
     }
 
     .week-btn {
@@ -279,7 +287,8 @@ $top-bar-height: 3rem;
     transition: width 0.35s ease, opacity 0.35s ease;
 }
 
-/*---------- END Timetable header ----------*/
+
+
 
 
 
@@ -290,9 +299,35 @@ $top-bar-height: 3rem;
                                                 // wider browser support
 }
 
+.help-btn {
+    cursor: pointer;
+
+    text-align: center;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    border-radius: 1rem;
+    background-color: #555555;
+
+    font-family: $font-family-base;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 33px;
+
+    color: #FFFFFF;
+}
 
 
-/*---------- Timetabale filter sidebar ----------*/
+
+
+//+----------------------------------------------------------------------------+
+//|                                                                            |
+//+                         Timetabale filter sidebar                          +
+//|                                                                            |
+//+----------------------------------------------------------------------------+
 
 $toggle-filters-bar-time: 0.35s;
 
@@ -445,17 +480,18 @@ $category-color: #16405A;
     }
 }
 
-/*---------- END Timetabale filter sidebar ----------*/
+//+----------------------------------------------------------------------------+
+//|                                                                            |
+//+                              Timetabale body                               +
+//|                                                                            |
+//+----------------------------------------------------------------------------+
 
-
-
-/*---------- Timetable body ---------*/
 $timetable-day-width: 23rem;
 $timetable-day-width-current: 26.5rem;
 
 .week-list-scroll {
-    overflow-x: scroll;
-    overflow-y: scroll;
+    overflow-x: auto;
+    overflow-y: auto;
     height: 100%;
     flex: 1 0 75%;
     display: flex;
@@ -520,6 +556,12 @@ $timetable-day-width-current: 26.5rem;
         display: none;
     }
 }
+
+//+----------------------------------------------------------------------------+
+//|                                                                            |
+//+                             Timetabale event                               +
+//|                                                                            |
+//+----------------------------------------------------------------------------+
 
 $old-event-color: theme-color(primary);
 $current-event-color: #34BDB7;
@@ -683,4 +725,3 @@ $event-icon-full-height: 2rem;
 .icon-clip {
     background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.30667 14.4001C6.18667 14.4001 5.17334 13.9734 4.37334 13.1201C2.77334 11.4668 2.77334 8.69343 4.37334 7.0401L8.64001 2.5601C9.22667 1.9201 10.0267 1.6001 10.8267 1.6001C11.6267 1.6001 12.4267 1.9201 12.96 2.5601C14.1333 3.78676 14.1333 5.81343 12.96 7.0401L9.06667 11.1468C8.69334 11.5201 8.21334 11.7334 7.68001 11.7334C7.14667 11.7334 6.66667 11.5201 6.29334 11.1468C5.54667 10.3468 5.54667 9.06676 6.29334 8.26676L9.44001 4.9601C9.65334 4.74676 9.97334 4.74676 10.1867 4.9601C10.4 5.17343 10.4 5.49343 10.1867 5.70676L7.04001 9.01343C6.66667 9.38676 6.66667 10.0268 7.04001 10.4001C7.20001 10.5601 7.41334 10.6668 7.68001 10.6668C7.89334 10.6668 8.16001 10.5601 8.32001 10.4001L12.2133 6.29343C13.0133 5.4401 13.0133 4.10676 12.2133 3.30676C11.4667 2.50676 10.1867 2.50676 9.44001 3.30676L5.17334 7.78676C3.94667 9.06676 3.94667 11.1468 5.17334 12.3734C5.76001 12.9601 6.50667 13.3334 7.30667 13.3334C8.10667 13.3334 8.85334 13.0134 9.44001 12.3734L12.4267 9.22676C12.64 9.01343 12.96 9.01343 13.1733 9.22676C13.3867 9.4401 13.3867 9.7601 13.1733 9.97343L10.1867 13.1201C9.44001 13.9734 8.42667 14.4001 7.30667 14.4001Z' fill='%238B9FAC'/%3E%3C/svg%3E");
 }
-/*---------- END Timetable body ---------*/
