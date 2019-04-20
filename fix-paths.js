@@ -25,7 +25,7 @@ for(var i = 0; i < files.length; i++){
 		console.log('change ', f);
 		var data = fs.readFileSync(f, 'utf8');
 		data = data
-			.replace(/(["'])\/fonts/g, '$1fonts')
+			.replace(/(["'])\/fonts/g, '$1../fonts')
 			.replace(/(["'])\/js/g, '$1js')
 			.replace(/(["'])\/css/g, '$1css')
 			.replace(/(["'])\/img/g, '$1img');
