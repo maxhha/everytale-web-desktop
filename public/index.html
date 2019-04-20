@@ -21,8 +21,8 @@
                 </div>
 
                 <div class="d-flex d-flex-row timetable-view-week">
-                    <h4 class="d-none d-md-block">Расписание занятий</h4>
-                    <div class="d-flex justify-content-between week-switch current-week">
+                    <h4 class="d-none d-lg-block flex-shrink-1">Расписание занятий</h4>
+                    <div class="d-flex flex-shrink-0 justify-content-between week-switch current-week">
                         <div class="week-btn prev-week-btn">
                             <div class="chevron"></div>
                         </div>
@@ -31,7 +31,7 @@
                             <div class="chevron"></div>
                         </div>
                     </div>
-                    <div class="to-today-btn">К сегодня</div>
+                    <div class="to-today-btn flex-shrink-0">К сегодня</div>
                 </div>
             </div>
             <div class="d-flex">
@@ -100,7 +100,6 @@
     <script id="day-tmpl" type="text/x-handlebars-template">
         <div class="day-place {{#if today}}current{{/if}}">
             <div class="day-card">
-
                 <div class="d-flex justify-content-between day-header">
                     <div class="weekday">
                         {{name}}
@@ -130,29 +129,29 @@
                 <a class="event-name" href="{{this.url}}">{{name}}</a>
             </div>
             <div class="d-flex justify-content-between event-icons-bar">
-                <div class="d-flex event-info">
+                <div class="event-info">
+                    <div class="d-flex">
+                        {{#if lecturer}}
+                        <div class="info-position">
+                            <div class="event-icon icon-lecturer"></div>
+                            <label title="{{lecturer}}">{{lecturer}}</label>
+                        </div>
+                        {{/if}}
 
-                    {{#if lecturer}}
-                    <div class="info-position">
-                        <div class="event-icon icon-lecturer"></div>
-                        <label title="{{lecturer}}">{{lecturer}}</label>
+                        {{#if place}}
+                        <div class="info-position">
+                            <div class="event-icon icon-place"></div>
+                            <label title="{{place}}">{{placeShort}}</label>
+                        </div>
+                        {{/if}}
+
+                        {{#if info}}
+                        <div class="info-position">
+                            <div class="event-icon icon-info"></div>
+                            <label title="{{info}}">{{infoShort}}</label>
+                        </div>
+                        {{/if}}
                     </div>
-                    {{/if}}
-
-                    {{#if place}}
-                    <div class="info-position">
-                        <div class="event-icon icon-place"></div>
-                        <label title="{{place}}">{{placeShort}}</label>
-                    </div>
-                    {{/if}}
-
-                    {{#if info}}
-                    <div class="info-position">
-                        <div class="event-icon icon-info"></div>
-                        <label title="{{info}}">{{infoShort}}</label>
-                    </div>
-                    {{/if}}
-
                 </div>
                 <div class="d-flex justify-content-end">
                     <span class="event-icon icon-paper {{#if hasDocument}}{{else}}disabled{{/if}}"></span>

@@ -192,7 +192,6 @@ $top-bar-height: 3rem;
 
 .week-switch {
     height: 2rem;
-    min-width: 13rem;
 
     margin-left: 2rem;
     border: 1px solid $white;
@@ -232,7 +231,7 @@ $top-bar-height: 3rem;
         font-style: normal;
         font-weight: normal;
         font-size: 14px;
-
+        padding: 0 0.5rem;
     }
 
     .week-btn {
@@ -569,6 +568,7 @@ $upcoming-event-color: #FFC300;
 $event-header-font-size-primary: 14px;
 $event-header-font-size-secondary: 12px;
 $event-icon-full-height: 2rem;
+$icons-hover-time: 0.35s;
 
 .timetable-event {
     font-family: $font-family-base;
@@ -587,18 +587,6 @@ $event-icon-full-height: 2rem;
     }
     &:last-of-type {
         margin-bottom: 0;
-    }
-
-    &:hover .event-info {
-        flex-flow: column;
-        .event-icon {
-            margin-left: 0.5rem;
-        }
-
-        .event-icon + label {
-            display: block;
-        }
-        height: $event-icon-full-height * 3;
     }
 }
 
@@ -665,7 +653,6 @@ $event-icon-full-height: 2rem;
 .event-info {
     height: $event-icon-full-height;
     overflow-y: hidden;
-    transition: height 0.35s ease;
 }
 
 .event-icon {
@@ -699,6 +686,16 @@ $event-icon-full-height: 2rem;
         font-size: $event-header-font-size-secondary;
         margin-bottom: 0;
         color: #8B9FAC;
+    }
+}
+
+.flex-column > .info-position {
+    .event-icon {
+        margin-left: 0.5rem;
+    }
+
+    .event-icon + label {
+        display: block;
     }
 }
 

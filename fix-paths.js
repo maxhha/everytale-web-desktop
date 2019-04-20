@@ -1,3 +1,12 @@
+/*
+ Change server file names to local. 
+ Examples:
+   url('/img/eye.svg') -> url('img/eye.svg')
+   src="/js/script.js"  -> src="js/script.js"
+   url("/fonts/main.ttf") *-> url("../fonts/main.ttf")
+	(to fix dependence in css files)
+*/
+
 var fs = require('fs');
 var basePath = "./public";
 

@@ -421,3 +421,43 @@ $(".filter-sidebar").on('transitionend', function(){
     });
 
 })();
+
+(function(){
+    var animationTime = 350;
+
+    $(document).on('mouseenter', ".timetable-event", function(){
+        var poses = $(this).find(".info-position");
+
+        $(this).find(".event-info").animate({
+            height:  poses.height()*poses.length
+        }, animationTime);
+
+        poses.animate({opacity:0}, {
+            duration: animationTime/2,
+            complete: function(){
+                $(this).parent().addClass("flex-column");
+            }
+        }).animate({
+            opacity: 1
+        }, animationTime/2);
+    });
+
+    $(document).on('mouseleave', ".timetable-event", function(){
+        var poses = $(this).find(".info-position");
+
+        $(this).find(".event-info").animate({
+            height:  poses.height()
+        }, animationTime);
+
+        poses.animate({opacity:0}, {
+            duration: animationTime/2,
+            complete: function(){
+                console.log($(this));
+                $(this).parent().removeClass("flex-column");
+            }
+        }).animate({
+            opacity: 1
+        }, animationTime/2);
+    });
+
+})();
