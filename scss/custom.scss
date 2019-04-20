@@ -54,13 +54,16 @@ $font-family-heading: 'EtelkaTextPro';
     background-position: center;
 }
 
-///*---------- Small screen blocker ----------*/
+
+html, body {
+    height: 100%;
+}
+// /*---------- Small screen blocker ----------*/
 // body{
-//    min-width:1024px;
+//    min-width: 992px;
 //    width: auto !important;  /* Firefox will set width as auto */
-//    width:1024px;            /* As IE6 ignores !important it will set width as 1024px; */
+//    width: 992px;            /* As IE6 ignores !important it will set width as 992px; */
 // }
-///*---------- END Small screen blocker ----------*/
 
 // /* Fix h5 margin to ceneter with icons */
 // h5 {
@@ -134,6 +137,7 @@ $top-bar-height: 3rem;
     background-color: theme-color(primary);
     h4 {
         line-height: inherit;
+        margin-right: 2rem;
     }
 }
 
@@ -193,7 +197,6 @@ $top-bar-height: 3rem;
 .week-switch {
     height: 2rem;
 
-    margin-left: 2rem;
     border: 1px solid $white;
     border-radius: 1rem;
     background-color: theme-color(primary);
