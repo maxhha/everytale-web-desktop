@@ -452,7 +452,6 @@ $(".filter-sidebar").on('transitionend', function(){
         poses.animate({opacity:0}, {
             duration: animationTime/2,
             complete: function(){
-                console.log($(this));
                 $(this).parent().removeClass("flex-column");
             }
         }).animate({
